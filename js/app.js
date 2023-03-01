@@ -24,47 +24,51 @@ function consultAPI(city, country) {
   const appID = "Your own api key here";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appID}`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((json) => {
+  spinner();
+  setTimeout(() => {
+    
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        clearHTML();
+        if (json.cod === "404") {
+          printAlert("City not found");
+          return;
+        }
+  
+        showWeather(json);
+      });
+  }, 800);
 
-      console.log(json)
-      clearHTML();
-      if (json.cod === "404") {
-        printAlert("City not found");
-        return;
-      }
-
-      showWeather(json);
-    });
 }
 
 function showWeather(response) {
   const {
     name,
     main: { temp, temp_max, temp_min },
-    sys: { country }
+    sys: { country },
   } = response;
 
   const celsiusTemp = kelToCel(temp);
   const maxCelsiusTemp = kelToCel(temp_max);
   const minCelsiusTemp = kelToCel(temp_min);
 
-  const cityName = document.createElement('P');
+  const cityName = document.createElement("P");
   cityName.textContent = `${name} - ${country}`;
-  cityName.classList.add('font-bold', 'text-2xl');
+  cityName.classList.add("font-bold", "text-2xl");
 
   const currentTemp = document.createElement("P");
   currentTemp.innerHTML = `${celsiusTemp} &#8451;`;
   currentTemp.classList.add("font-bold", "text-6xl");
 
-  const maxTemp = document.createElement('P');
+  const maxTemp = document.createElement("P");
   maxTemp.innerHTML = `Max:  ${maxCelsiusTemp} &#8451;`;
-  maxTemp.classList.add('text-xl');
-  
-  const minTemp = document.createElement('P');
-  minTemp.innerHTML = `Min:  ${minCelsiusTemp} &#8451;`
-  minTemp.classList.add('text-xl');
+  maxTemp.classList.add("text-xl");
+
+  const minTemp = document.createElement("P");
+  minTemp.innerHTML = `Min:  ${minCelsiusTemp} &#8451;`;
+  minTemp.classList.add("text-xl");
 
   const resultDiv = document.createElement("DIV");
   resultDiv.classList.add("text-center", "text-white");
@@ -76,4 +80,3 @@ function showWeather(response) {
 
   result.appendChild(resultDiv);
 }
-
