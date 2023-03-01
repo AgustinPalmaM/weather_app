@@ -1,7 +1,3 @@
-const container = document.querySelector(".container");
-const result = document.querySelector("#resultado");
-const form = document.querySelector("#formulario");
-
 window.addEventListener("load", () => {
   form.addEventListener("submit", searchWeather);
 });
@@ -9,4 +5,15 @@ window.addEventListener("load", () => {
 function searchWeather(e) {
   e.preventDefault();
   console.log('Searching weather...');
+
+  // validate 
+
+  const city = document.querySelector('#ciudad').value;
+  const country = document.querySelector('#pais').value;
+
+  if( city === '' || country === '' ) {
+    
+    printAlert('Both fields are required');
+  }
+
 }
