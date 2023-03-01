@@ -27,6 +27,8 @@ function consultAPI(city, country) {
   fetch(url)
     .then((response) => response.json())
     .then((json) => {
+
+      console.log(json)
       clearHTML();
       if (json.cod === "404") {
         printAlert("City not found");
@@ -39,17 +41,38 @@ function consultAPI(city, country) {
 
 function showWeather(response) {
   const {
+    name,
     main: { temp, temp_max, temp_min },
+    sys: { country }
   } = response;
 
   const celsiusTemp = kelToCel(temp);
+  const maxCelsiusTemp = kelToCel(temp_max);
+  const minCelsiusTemp = kelToCel(temp_min);
+
+  const cityName = document.createElement('P');
+  cityName.textContent = `${name} - ${country}`;
+  cityName.classList.add('font-bold', 'text-2xl');
+
   const currentTemp = document.createElement("P");
   currentTemp.innerHTML = `${celsiusTemp} &#8451;`;
   currentTemp.classList.add("font-bold", "text-6xl");
 
+  const maxTemp = document.createElement('P');
+  maxTemp.innerHTML = `Max:  ${maxCelsiusTemp} &#8451;`;
+  maxTemp.classList.add('text-xl');
+  
+  const minTemp = document.createElement('P');
+  minTemp.innerHTML = `Min:  ${minCelsiusTemp} &#8451;`
+  minTemp.classList.add('text-xl');
+
   const resultDiv = document.createElement("DIV");
   resultDiv.classList.add("text-center", "text-white");
+
+  resultDiv.appendChild(cityName);
   resultDiv.appendChild(currentTemp);
+  resultDiv.appendChild(maxTemp);
+  resultDiv.appendChild(minTemp);
 
   result.appendChild(resultDiv);
 }
