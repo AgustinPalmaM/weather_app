@@ -29,3 +29,13 @@ function printAlert(message, typeMessage) {
     }, 1500);
   }
 }
+
+// Transform kelvin temperature to celsius temperature
+const kelToCel = kelvinTemp =>  (kelvinTemp - 273.15).toFixed(2);
+
+// Clear the div with temperature result, so this avoid duplicated result on the screen 
+function clearHTML() {
+  while (result.firstChild) {
+    result.firstChild.remove();
+  }
+}
