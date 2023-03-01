@@ -39,7 +39,7 @@ function consultAPI(city, country) {
   
         showWeather(json);
       });
-  }, 800);
+  }, 500);
 
 }
 
