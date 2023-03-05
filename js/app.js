@@ -21,7 +21,7 @@ function searchWeather(e) {
 }
 
 function consultAPI(city, country) {
-  const appID = "Your own api key here";
+  const appID = "Put your own key here";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appID}`;
 
   spinner();
