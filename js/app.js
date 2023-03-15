@@ -84,4 +84,3 @@ function showWeather(response) {
   result.appendChild(resultDiv);
 }
 
-console.log(process.env)
