@@ -1,27 +1,30 @@
-window.addEventListener("load", () => {
+import API_KEY from "../apiKey.js";
+
+window.addEventListener("load", (e) => {
+  
   form.addEventListener("submit", searchWeather);
 });
 
 function searchWeather(e) {
   e.preventDefault();
   console.log("Searching weather...");
-
+  
   // validate
-
+  
   const city = document.querySelector("#ciudad").value;
   const country = document.querySelector("#pais").value;
-
+  
   if (city === "" || country === "") {
     printAlert("Both fields are required");
-
+    
     return;
   }
-
+  
   consultAPI(city, country);
 }
 
 function consultAPI(city, country) {
-  const appID = "Put your own key here";
+  const appID = API_KEY;
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appID}`;
 
   spinner();
@@ -80,3 +83,5 @@ function showWeather(response) {
 
   result.appendChild(resultDiv);
 }
+
+console.log(process.env)
